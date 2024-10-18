@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>iPhone Display with Windows</title>
+
+
+
+    <style>
+    /* Basic styling */
+body, html { width: 100%; margin: 0; padding: 0; }
+body * { box-sizing: border-box; }
+body {
+    margin: 0;
+    background-color: #F3F7FA;
+    font-family: Arial, sans-serif;
+    scroll-behavior: smooth;
+}
+
+/* Header Styles */
+.site-header {
+    background-color: #0084FF;
+    color: #fff;
+    padding: 20px 0;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+.header-container {
+    max-width: 1200px;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 20px;
+}
+
+.nav-menu {
+    list-style: none;
+    display: flex;
+    gap: 15px;
+}
+
+.nav-menu a {
+    color: #fff;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.nav-menu a:hover {
+    color: #00AAFF;
+}
+
+/* Main Container */
+.main-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 80px;
+    padding: 0 20px;
+    max-width: 1200px;
+    min-height: 100vh;
+}
+
+/* iPhone Display */
+.iphone {
+    order: 2;
+    width: 232px;
+    max-width: 232px;
+    height: 100%;
+    background: linear-gradient(145deg, #1f1f1f, #3b3b3b); /* Dark gradient for a modern look */
+    border-radius: 30px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5); 
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 5% 0 20px 5%;
+    border: 1px solid #222;
+}
+
+.screen {
+    width: 230px;
+    height: 470px;
+    background: #f5f5f5;
+    border-radius: 30px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.2); 
+    
+}
+
+/* Dynamic Island Styles */
+.dynamic-island {
+    width: 90px;
+    height: 25px;
+    background-color: #0B1D37;
+    border-radius: 12px;
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+
+
+.notification-container {
+    position: absolute;
+    bottom: 20px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+
+/* Notification Styles */
+
+
+/* .notification1 {
+    width: 90%;
+    background-color: rgba(43, 41, 41, 0.9); 
+    border-radius: 15px;
+    padding: 10px;
+    margin-bottom: 10px;
+    color: #333;
+    font-size: 14px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); 
+    opacity: 0.7;
+    animation: slide-up 0.5s ease-out;
+}
+.notification2 {
+    width: 90%;
+    background-color: rgba(43, 41, 41, 0.9); 
+    border-radius: 15px;
+    padding: 10px;
+    margin-bottom: 10px;
+    color: #333;
+    font-size: 14px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); 
+    opacity: 0.7;
+    animation: slide-up 1s ease-out;
+}
+.notification3 {
+    width: 90%;
+    background-color: rgba(43, 41, 41, 0.9); 
+    border-radius: 15px;
+    padding: 10px;
+    margin-bottom: 10px;
+    color: #333;
+    font-size: 14px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); 
+    opacity: 0.7;
+    animation: slide-up 1.5s ease-out;
+    animation-duration: 1.5s;
+} */
+
+
+/* Common styles for all notifications */
+
+/* Common styles for all notifications */
+.notification {
+    height: 55px;
+    width: 90%;
+    background-color: rgba(43, 41, 41, 0.9); 
+    border-radius: 45px;
+    padding: 2px;
+    margin-bottom: 4px;
+    color: #fff;
+    font-size: 13px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); 
+    opacity: 0; /* Start as invisible */
+    position: relative;
+    transform: translateY(100%); /* Start off-screen */
+}
+.notification a{
+    top: 20%;
+}
+/* Animation to slide up and fade in */
+@keyframes slide-up {
+    0% {
+        transform: translateY(100%);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Animation to move up the notification */
+@keyframes move-up {
+    0% {
+        transform: translateY(0);
+    }
+    100% {
+        transform: translateY(-50px); /* Moves up 50px */
+    }
+}
+
+/* Classes to apply moving up */
+.moved-up {
+    animation: move-up 0.5s ease-out forwards;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Bottom Speaker Styles */
+.bottom-speaker {
+    width: 60px;
+    height: 4px;
+    background-color: #333;
+    border-radius: 2px;
+    position: absolute;
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+
+/* Notification Animation */
+/* @keyframes slide-up {
+    0% {
+        transform: translateY(100%);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+} */
+
+
+
+
+
+
+
+/* Windows Container */
+.windows-container {
+    order: 1;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    width: 60%;
+    margin-top: 5%;
+    margin-left: 20%;
+}
+
+.window {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    text-align: center;
+}
+
+.window-image {
+    max-width: 100%;
+    border-radius: 5px;
+}
+
+.window-text {
+    color: #606981;
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+/* Footer Styles */
+.site-footer {
+    background-color: #2F3441; /* Dark slate for a modern look */
+    color: #ffffff; /* White text for contrast */
+    padding: 40px 20px; /* Extra padding for a more spacious feel */
+    text-align: center;
+    width: 100%;
+    position: relative;
+    bottom: 0;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+    font-family: 'Roboto', sans-serif; /* Clean, modern font */
+    font-size: 14px;
+}
+
+.site-footer p {
+    margin: 0 0 10px; /* Space between lines */
+    line-height: 1.6; /* Better readability */
+}
+
+.site-footer a {
+    color: #ffdd57; /* Warm, soft yellow for links */
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease; /* Smooth color change on hover */
+}
+
+.site-footer a:hover {
+    color: #f39c12; /* Darker yellow for hover effect */
+}
+
+
+.site-footer .separator {
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    margin: 20px 0;
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+
+@media (max-width: 1024px) {
+    .windows-container {
+        grid-template-columns: 1fr;
+        width: 100%;
+        margin: 20px auto 0;
+        align-items: center;
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .main-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .windows-container {
+        grid-template-columns: 1fr;
+        width: 100%;
+    }
+
+    .iphone {
+        width: 80%;
+        height: auto;
+    }
+}
+
+
+@media (max-width: 500px) {
+    .main-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .windows-container {
+        grid-template-columns: 1fr;
+        width: 100%;
+    }
+
+    .iphone {
+        width: 80%;
+        height: auto;
+    }
+    .logo{
+        height: 90%;
+         width: 40%; 
+    }
+}
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="site-header">
+        <div class="header-container">
+            <div class="logo">
+               <img src="./Logo-01.svg" alt="" style="height: 90%; width: 40%; "> <!-- Replace with your logo -->
+            </div>
+            <nav class="main-navigation">
+                <ul class="nav-menu">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">Services</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <div class="main-container">
+        <!-- iPhone Display -->
+        <div class="iphone">
+            <div class="screen"  style="background: url('ip.png') center center / cover no-repeat;">
+                <div class="dynamic-island"></div>
+                
+                <!-- Notifications container at the bottom -->
+                <div class="notification-container">
+                    <div class="notification notification1">
+                       <a href="https://onlinecredit.vtb.am/"  target="_blank" style="text-decoration: none; color: cornflowerblue;">  <p>🔔Sարեկան անվանական տոկոսադրույք` 16.1%-18.1%</p> </a>
+                    </div>
+                    <div class="notification notification2">
+                      <a href="#"  target="_blank" style="text-decoration: none; color: cornflowerblue;">  <p>📅 Sարեկան փաստացի տոկոսադրույք` 19.2%-22.32% </p></a>
+                    </div>
+                    <div class="notification notification3">
+                      <a href="#"   target="_blank" style="text-decoration: none; color: cornflowerblue;"> <p>💬 Վարկի որոշման ժամկետ՝ մինչև 15 րոպե</p></a> 
+                    </div>
+                </div>
+        
+                <div class="bottom-speaker"></div>
+            </div>
+        </div>
+        
+        
+
+        <!-- Windows Container -->
+         <a href=" https://www.vtb.am/am/credits"   target="_blank"  style="display: block; text-decoration: none; color: cornflowerblue;"  >
+        <div class="windows-container">
+            <div class="window">
+               <img src="https://www.vtb.am/img/content/news/ONLINE_VARK_reliz_EMPTY.jpg" alt="Description" class="window-image">
+                <p class="window-text">Հաշվարկեք վարկը</p>  
+            </div>
+            <div class="window">
+                <img src="https://b24.am/pub/uploads/2022/02/NEW_reliz_cashback-arm.jpg" alt="Description" class="window-image">
+                <p class="window-text">Լրացրեք Ձեր տվյալները</p>
+            </div>
+            <div class="window">
+                <img src="https://panorama.am/news_images/743/2227027_1/vtb.thumb.jpg" alt="Description" class="window-image">
+                <p class="window-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit, amet consectetur adipisicing elit. Est illum, libero, similique illo officia ipsam natus corporis, expedita velit aspernatur quo consequuntur iure aliquid numquam fugit ea molestias delectus? Velit!</p>
+            </div>
+            <div class="window">
+                <img src="https://www.vtb.am/img/content/news/rellizz_empty1.jpg" alt="Description" class="window-image">
+                <p class="window-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequuntur laudantium distinctio nesciunt rerum ducimus in, consectetur hic aliquam praesentium, reiciendis magnam sunt officia animi! Molestiae ab non dolores voluptatem at?</p>
+            </div>
+        </div>
+    </a>
+    </div>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-content">
+            <p>&copy; Բանկը վերահսկվում է ՀՀ Կենտրոնական բանկի կողմից:
+
+            </p>
+            <div class="separator"></div>
+            <p>Контактная информация:</p>
+            <p>ՀՀ, 0006, ք․ Երևան, Մանանդյան փ. 33/3</p>
+            <p>Телефон: 87-87</p>
+            <p>Email: <a href="mailto:headoffice@vtb.am">headoffice@vtb.am</a></p>
+            <p>Website: <a href="https://onlinecredit.vtb.am" target="_blank">https://onlinecredit.vtb.am</a></p>
+        </div>
+    </footer>
+    
+
+
+
+    
+<script>
+   // Select the notification elements
+const notification1 = document.querySelector('.notification1');
+const notification2 = document.querySelector('.notification2');
+const notification3 = document.querySelector('.notification3');
+
+// Show the first notification immediately
+setTimeout(() => {
+    notification1.style.animation = 'slide-up 0.5s ease-out forwards';
+}, 0);
+
+// Show the second notification after 1 second and move the first up
+setTimeout(() => {
+    notification1.style.transform = 'translateY(-50px)'; // Move the first one up slightly
+    notification2.style.animation = 'slide-up 0.5s ease-out forwards';
+}, 1000);
+
+// Show the third notification after another 1 second and move both the first and second up
+setTimeout(() => {
+    notification1.style.transform = 'translateY(-100px)'; // Move the first one up more
+    notification2.style.transform = 'translateY(-50px)';  // Move the second one up slightly
+    notification3.style.animation = 'slide-up 0.5s ease-out forwards';
+}, 2000);
+
+</script>
+</body>
+
+</html>
